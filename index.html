@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Portal Familia GL &lt;3 | Kamila, Isidora, Clemente &amp; Julián</title>
+  <meta name="theme-color" content="#2EC4B6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Familia GL <3" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%232EC4B6'/%3E%3Ctext x='50%25' y='44%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='900' font-size='190' fill='%23FFFFFF'%3EGL%3C/text%3E%3Ctext x='50%25' y='74%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='110' fill='%23FFE5E4'%3E%E2%9D%A4%3C/text%3E%3C/svg%3E" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root { --bg-main: #F2FBFB; --bg-card: #FFFFFF; --border-soft: #BCECE7; --text-main: #134E53; }
+    body.night-mode { --bg-main: #0D262B; --bg-card: #14383F; --border-soft: #235B66; --text-main: #E6FAF8; }
+    body { background-color: var(--bg-main); color: var(--text-main); font-family: system-ui, -apple-system, sans-serif; transition: background-color 0.25s, color 0.25s; }
+    .gl-card { background-color: var(--bg-card); border: 1.5px solid var(--border-soft); transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s; }
+    .gl-card:hover { transform: translateY(-2px); border-color: #2EC4B6; box-shadow: 0 12px 24px rgba(46, 196, 182, 0.15); }
+    @media (max-width: 640px) { input, select, textarea { font-size: 16px !important; } }
+  </style>
+</head>
+<body class="min-h-screen pb-24">
+  <header class="border-b border-[#BCECE7] bg-gradient-to-r from-[#CBF3F0] via-[#E3F9F7] to-[#FFE8E5] text-[#134E53] shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#2EC4B6] text-white flex items-center justify-center shadow-md shrink-0 text-xl sm:text-2xl font-black">
+          GL
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-xl sm:text-3xl font-black tracking-tight text-[#134E53]">PORTAL FAMILIA GL &lt;3</h1>
+            <span class="px-2.5 py-0.5 text-[10px] sm:text-[11px] font-extrabold rounded-full bg-white/85 text-[#1B8A82] border border-[#99E2DC]">
+              10 Súper-Módulos • 2026–2027
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm font-medium text-[#2C686E] mt-0.5">
+            Kamila Guerrero &amp; Isidora López • Clemente (4) &amp; Julián (2)
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2">
+        <button onclick="openMobileInstallModal()" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-[#FFE5E4] hover:bg-[#FFD6D4] text-[#8E2A25] border border-[#FF9F9B] text-xs font-extrabold shadow-sm transition">
+          <i data-lucide="smartphone" class="w-4 h-4"></i> Guardar en Celular
+        </button>
+        <button onclick="exportAllFamilyData()" class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-[#F2FBFB] text-[#134E53] border border-[#99E2DC] text-xs font-bold shadow-sm transition">
+          <i data-lucide="download" class="w-4 h-4 text-[#2EC4B6]"></i> Respaldar (.JSON)
+        </button>
+        <label class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white hover:bg-[#F2FBFB] text-[#134E53] border border-[#99E2DC] text-xs font-bold shadow-sm cursor-pointer transition">
+          <i data-lucide="upload" class="w-4 h-4 text-[#FF9F9B]"></i> Importar
+          <input type="file" accept=".json" onchange="importAllFamilyData(event)" class="hidden" data-no-save="true" />
+        </label>
+        <button onclick="toggleNightMode()" class="flex items-center justify-center p-2 rounded-xl bg-white hover:bg-[#F2FBFB] text-[#134E53] border border-[#99E2DC] shadow-sm transition" title="Modo claro / descanso nocturno">
+          <i data-lucide="moon" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-3.5 sm:px-6 mt-5 space-y-5">
+    <!-- Paneles en vivo -->
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div class="lg:col-span-5 rounded-2xl p-4 sm:p-5 border-2 border-[#2EC4B6] bg-gradient-to-r from-[#E0F8F6] via-white to-[#FFF4E4] text-[#134E53] shadow-sm flex flex-col justify-between gap-3">
+        <div class="space-y-1">
+          <span id="liveBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold bg-[#2EC4B6] text-white">Calculando turno...</span>
+          <h2 id="liveHeadline" class="text-base sm:text-xl font-black text-[#134E53] pt-1">Cargando estado de Clemente y Julián...</h2>
+          <p id="liveSubline" class="text-xs sm:text-sm text-[#3B6E74]"></p>
+        </div>
+        <div class="pt-1">
+          <a href="./modulos/calendario_coparentalidad.html" class="w-full sm:w-auto inline-flex text-center justify-center px-4 py-2.5 rounded-xl bg-[#2EC4B6] hover:bg-[#24A69A] text-white text-xs font-extrabold shadow-sm items-center gap-1.5">
+            <i data-lucide="calendar-heart" class="w-4 h-4"></i> Calendario 2026–2027
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 rounded-2xl p-4 sm:p-5 border-2 border-[#FF9F9B] bg-gradient-to-br from-[#FFF0EF] via-white to-[#F3EAF9] text-[#134E53] shadow-sm flex flex-col justify-between gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-start">
+          <div class="sm:col-span-6 space-y-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#FF9F9B] text-white">💞 KAMILA &amp; ISIDORA</span>
+              <span id="loveTodayBadge" class="text-[11px] font-extrabold text-[#9B3B37]"></span>
+            </div>
+            <h2 class="text-sm sm:text-base font-black text-[#7A221E] pt-0.5">Cumplemes cada 1° • Aniversario 1 Abril</h2>
+            <p id="loveSubline" class="text-[11px] text-[#5C3A78] leading-relaxed"></p>
+          </div>
+
+          <div class="sm:col-span-6 rounded-xl p-3 bg-white/90 border border-[#CDB4DB] space-y-1.5">
+            <div class="flex items-center justify-between gap-1">
+              <span class="text-[10px] font-extrabold uppercase text-[#5C3A78]">🕊️ Días sin discutir</span>
+              <span id="peaceStreakStars" class="text-xs font-black tracking-tight">☆☆☆☆☆</span>
+            </div>
+            <div class="flex items-baseline justify-between gap-2">
+              <div><span id="peaceDaysCount" class="text-2xl font-black text-[#134E53]">0</span> <span class="text-xs font-bold text-[#52797E]">día(s)</span></div>
+              <span id="peaceStatusLabel" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-[#EDE2F5] text-[#5C3A78]">Meta: 7 días</span>
+            </div>
+            <div class="flex gap-1.5 pt-1">
+              <button onclick="addPeaceDay()" class="flex-1 py-1.5 px-2 rounded-lg bg-[#2EC4B6] hover:bg-[#23A89C] text-white text-[11px] font-extrabold">+1 Día en Paz</button>
+              <button onclick="resetPeaceDays()" class="py-1.5 px-2.5 rounded-lg bg-[#FFE5E4] hover:bg-[#FFD6D4] text-[#9B3B37] text-[11px] font-bold">Reiniciar</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <a href="./modulos/calendario_coparentalidad.html#citas" class="text-center px-3 py-2 rounded-xl bg-[#FF9F9B] hover:bg-[#f28782] text-white text-xs font-extrabold shadow-sm">💖 Agendar Citas</a>
+          <a href="./modulos/pareja_bienestar_capsula.html" class="text-center px-3 py-2 rounded-xl bg-[#EDE2F5] hover:bg-[#DFC9F0] text-[#5C3A78] text-xs font-extrabold border border-[#CDB4DB]">🎲 Frasco de Citas</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buscador y 4 Categorías -->
+    <section class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+      <div class="relative flex-1">
+        <i data-lucide="search" class="w-4 h-4 text-[#2EC4B6] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input id="searchInput" oninput="renderCards()" placeholder="Buscar herramienta (calendario, rutinas, ropa, escolaridad, ahorro, salud, menú)..."
+          class="w-full pl-10 pr-4 py-2.5 rounded-xl gl-card text-sm outline-none focus:border-[#2EC4B6]" data-no-save="true" />
+      </div>
+      <div class="flex overflow-x-auto gap-1.5 text-xs font-bold pb-1 sm:pb-0">
+        <button onclick="setCat('todas')" id="cat-todas" class="cat-btn shrink-0 px-3 py-2 rounded-xl bg-[#2EC4B6] text-white">Todas (10)</button>
+        <button onclick="setCat('Crianza, Visitas y Escolaridad')" id="cat-Crianza, Visitas y Escolaridad" class="cat-btn shrink-0 px-3 py-2 rounded-xl gl-card">Crianza y Escolaridad</button>
+        <button onclick="setCat('Pareja y Recuerdos')" id="cat-Pareja y Recuerdos" class="cat-btn shrink-0 px-3 py-2 rounded-xl gl-card">Pareja y Recuerdos</button>
+        <button onclick="setCat('Hogar, Finanzas y Vehículo')" id="cat-Hogar, Finanzas y Vehículo" class="cat-btn shrink-0 px-3 py-2 rounded-xl gl-card">Hogar y Finanzas</button>
+        <button onclick="setCat('Salud, Alimentación y Emergencias')" id="cat-Salud, Alimentación y Emergencias" class="cat-btn shrink-0 px-3 py-2 rounded-xl gl-card">Salud y Menú</button>
+      </div>
+    </section>
+
+    <!-- Grid de 10 Súper-Módulos -->
+    <section id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"></section>
+  </main>
+
+  <!-- Modal Celular -->
+  <div id="mobileInstallModal" class="hidden fixed inset-0 z-50 bg-[#134E53]/55 backdrop-blur-sm p-4 flex items-center justify-center">
+    <div class="bg-white border-2 border-[#2EC4B6] rounded-2xl max-w-md w-full p-5 space-y-3 text-[#134E53] shadow-2xl">
+      <div class="flex justify-between items-center"><h3 class="text-base font-black">📱 Guardar en tu Celular</h3><button onclick="closeMobileInstallModal()" class="px-2.5 py-1 rounded-lg bg-[#E0F8F6] text-xs font-extrabold">✕</button></div>
+      <div class="p-3 rounded-xl bg-[#F2FBFB] border border-[#BCECE7] text-xs"><strong class="text-[#1B8A82]">🍏 iPhone (Safari):</strong> Toca <strong>Compartir</strong> → <strong>«Agregar a pantalla de inicio»</strong>.</div>
+      <div class="p-3 rounded-xl bg-[#FFF7F6] border border-[#FFD6D4] text-xs"><strong class="text-[#9B3B37]">🤖 Android (Chrome):</strong> Toca <strong>(⋮)</strong> → <strong>«Instalar aplicación»</strong>.</div>
+      <div class="p-3 rounded-xl bg-[#FFF9E6] border border-[#FFE8B3] text-xs"><strong>🔄 Sincronizar:</strong> Toca <strong>«Respaldar (.JSON)»</strong>, envíalo por WhatsApp y en el otro celular toca <strong>«Importar»</strong>.</div>
+    </div>
+  </div>
+
+  <!-- Modal Vista Previa -->
+  <div id="previewModal" class="hidden fixed inset-0 z-50 bg-[#134E53]/50 backdrop-blur-sm p-2 sm:p-6 flex items-center justify-center">
+    <div class="bg-white border-2 border-[#2EC4B6] rounded-2xl w-full max-w-6xl h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="px-4 py-3 bg-[#E0F8F6] border-b border-[#BCECE7] flex justify-between items-center text-[#134E53]">
+        <strong id="previewTitle" class="text-xs sm:text-sm font-black truncate">Vista Previa</strong>
+        <div class="flex items-center gap-2 shrink-0">
+          <a id="previewExternal" href="#" class="px-3 py-1.5 rounded-lg bg-[#2EC4B6] text-white text-xs font-bold">Pantalla completa</a>
+          <button onclick="closePreview()" class="px-3 py-1.5 rounded-lg bg-white border border-[#BCECE7] text-xs font-bold">✕</button>
+        </div>
+      </div>
+      <iframe id="previewFrame" src="" class="w-full flex-1 border-0 bg-[#F2FBFB]"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const SUPER_MODULES = [
+      // 1. Crianza, Visitas y Escolaridad
+      {
+        id: 'cal_copar',
+        title: 'Calendario 2026–2027 & Coparentalidad',
+        cat: 'Crianza, Visitas y Escolaridad',
+        url: './modulos/calendario_coparentalidad.html',
+        badgeBg: '#CBF3F0', badgeText: '#0F5E63', accent: '#2EC4B6', icon: 'calendar-heart',
+        tags: ['Visitas Papá', 'Cumplemes & Aniversario', 'Gastos 50/50'],
+        desc: 'Fines de semana alternos del papá (desde Vie 27 Nov 17:30), cumplemes 1° y aniversario 1 Abril, citas importantes, acuerdos y gastos compartidos 50/50.'
+      },
+      {
+        id: 'rut_sueno',
+        title: 'Rutinas, Sueño, Esfínteres & Mochila',
+        cat: 'Crianza, Visitas y Escolaridad',
+        url: './modulos/rutinas_sueno.html',
+        badgeBg: '#EDE2F5', badgeText: '#5C3A78', accent: '#CDB4DB', icon: 'sparkles',
+        tags: ['Rutina Clemente (4)', 'Rutina Julián (2)', 'Siestas y Baño'],
+        desc: 'Estrellas de logro diario por edad, checklist de bolso de fin de semana, seguimiento de siestas y tablero de esfínteres de Julián.'
+      },
+      {
+        id: 'esc_ropa_reg',
+        title: 'Escolaridad, Inventario Ropa & Regalos',
+        cat: 'Crianza, Visitas y Escolaridad',
+        url: './modulos/escolaridad_ropa_regalos.html',
+        badgeBg: '#FFF3CC', badgeText: '#7A5B00', accent: '#FFBF69', icon: 'graduation-cap',
+        tags: ['Cursos & Útiles', 'Ropa Faltante / Herencia', 'Cumpleaños'],
+        desc: 'Curso actual, útiles semanales/mensuales, talleres extra, lista de ropa que les falta, herencia Clemente → Julián y baúl de regalos.'
+      },
+      {
+        id: 'panoramas',
+        title: 'Mapa de Panoramas & Plazas Kid-Friendly',
+        cat: 'Crianza, Visitas y Escolaridad',
+        url: './modulos/panoramas_ninos.html',
+        badgeBg: '#D8F3DC', badgeText: '#1B4332', accent: '#74C69D', icon: 'map-pin',
+        tags: ['Mapa Interactivo', 'Juegos 2 y 4 años', 'Cafés'],
+        desc: 'Mapa con sus parques favoritos, juegos seguros, mudadores, panoramas gratuitos/pagados y rutas directas en Google Maps.'
+      },
+
+      // 2. Pareja y Recuerdos
+      {
+        id: 'pareja_espacio',
+        title: 'Kamila & Isidora: Citas, Autocuidado y Cápsula',
+        cat: 'Pareja y Recuerdos',
+        url: './modulos/pareja_bienestar_capsula.html',
+        badgeBg: '#FFE5E4', badgeText: '#9B3B37', accent: '#FF9F9B', icon: 'heart',
+        tags: ['Frasco de Citas', 'Tiempo Propio', 'Cápsula del Tiempo'],
+        desc: 'Sorteador de citas en casa o finde libre, agenda de descanso individual para Kamila e Isidora y cartas selladas al futuro.'
+      },
+      {
+        id: 'album_hitos',
+        title: 'Diario de Hitos, Anécdotas & Recuerdos GL',
+        cat: 'Pareja y Recuerdos',
+        url: './modulos/album_hitos.html',
+        badgeBg: '#EDE2F5', badgeText: '#5C3A78', accent: '#CDB4DB', icon: 'book-heart',
+        tags: ['Frases Clemente', 'Logros Julián', 'Recuerdos'],
+        desc: 'Baúl de recuerdos con las salidas graciosas de Clemente, nuevas palabras de Julián y momentos inolvidables juntos.'
+      },
+
+      // 3. Hogar, Finanzas y Vehículo
+      {
+        id: 'finanzas_hogar',
+        title: 'Finanzas: Cuentas Fijas & Plan de Ahorro',
+        cat: 'Hogar, Finanzas y Vehículo',
+        url: './modulos/finanzas_hogar.html',
+        badgeBg: '#FFF3CC', badgeText: '#7A5B00', accent: '#FFBF69', icon: 'piggy-bank',
+        tags: ['Alcancías Metas', 'Cuentas del Mes', 'Kamila / Isidora'],
+        desc: 'Metas de ahorro (Emergencia, Vacaciones, Escapada Aniversario 1 Abril) junto con el checklist mensual de cuentas fijas del hogar.'
+      },
+      {
+        id: 'gestion_hogar',
+        title: 'Gestión del Hogar: Tareas, Despensa & Proyectos',
+        cat: 'Hogar, Finanzas y Vehículo',
+        url: './modulos/gestion_hogar.html',
+        badgeBg: '#CBF3F0', badgeText: '#0F5E63', accent: '#2EC4B6', icon: 'home',
+        tags: ['Tareas Semanales', 'Semáforo Pañales', 'Mejoras Casa'],
+        desc: 'Reparto semanal entre Kamila e Isidora, semáforo de stock de pañales/botiquín/cocina y tablero de proyectos de la casa.'
+      },
+      {
+        id: 'docs_auto',
+        title: 'Bóveda de Documentos & Vehículo Familiar',
+        cat: 'Hogar, Finanzas y Vehículo',
+        url: './modulos/documentos_auto.html',
+        badgeBg: '#EDE2F5', badgeText: '#5C3A78', accent: '#CDB4DB', icon: 'car',
+        tags: ['RUTs de los 4', 'Alertas Vencimiento', 'Sillas de Auto'],
+        desc: 'RUTs siempre a mano, alertas de vencimiento de cédulas/permisos y bitácora de mantención del auto y anclaje de sillas.'
+      },
+
+      // 4. Salud, Alimentación y Emergencias
+      {
+        id: 'salud_menu_eme',
+        title: 'Salud, Tallas, Menú Semanal & Emergencias',
+        cat: 'Salud, Alimentación y Emergencias',
+        url: './modulos/salud_menu_emergencia.html',
+        badgeBg: '#D8F3DC', badgeText: '#1B4332', accent: '#74C69D', icon: 'heart-pulse',
+        tags: ['Peso/Talla/Calzado', 'Menú y Compras WA', 'Llamada 1 Toque'],
+        desc: 'Ficha pediátrica y remedios, planificación de comidas con lista de supermercado por WhatsApp y teléfonos de urgencia en 1 toque.'
+      }
+    ];
+
+    let activeCat = 'todas';
+    let peaceDays = parseInt(localStorage.getItem('familiaGL_peace_days') || '0', 10);
+
+    function renderPeaceCounter() {
+      document.getElementById('peaceDaysCount').textContent = peaceDays;
+      const starsEl = document.getElementById('peaceStreakStars');
+      const statusEl = document.getElementById('peaceStatusLabel');
+      const weeks = Math.floor(peaceDays / 7);
+      if (peaceDays >= 7) {
+        starsEl.textContent = '⭐⭐⭐⭐⭐'; starsEl.style.color = '#E09F00';
+        statusEl.textContent = weeks > 1 ? `🏆 Racha x${weeks} sem.` : '🏆 ¡Racha 1 semana!';
+        statusEl.style.background = '#FFF3CC'; statusEl.style.color = '#7A5B00';
+      } else {
+        const filled = Math.min(5, Math.floor((peaceDays / 7) * 5));
+        starsEl.textContent = '⭐'.repeat(filled) + '☆'.repeat(5 - filled);
+        starsEl.style.color = filled > 0 ? '#E09F00' : '#94A3B8';
+        statusEl.textContent = `Faltan ${7 - peaceDays}d p/ 5★`;
+        statusEl.style.background = '#EDE2F5'; statusEl.style.color = '#5C3A78';
+      }
+    }
+    function addPeaceDay() {
+      peaceDays++; localStorage.setItem('familiaGL_peace_days', String(peaceDays)); renderPeaceCounter();
+      if (window.familiaGLSaveNow) window.familiaGLSaveNow(`Días sin discutir con Isidora: ${peaceDays} ${peaceDays >= 7 ? '(Racha ⭐⭐⭐⭐⭐)' : ''}`);
+    }
+    function resetPeaceDays() {
+      if (!confirm('¿Reiniciar el contador de días sin discutir a 0?')) return;
+      peaceDays = 0; localStorage.setItem('familiaGL_peace_days', '0'); renderPeaceCounter();
+      if (window.familiaGLSaveNow) window.familiaGLSaveNow('Contador reiniciado a 0');
+    }
+
+    window.getModuleCustomState = () => ({ peaceDays });
+    window.setModuleCustomState = (c) => { if (typeof c.peaceDays === 'number') { peaceDays = c.peaceDays; localStorage.setItem('familiaGL_peace_days', String(peaceDays)); renderPeaceCounter(); } };
+    window.getModuleDailySummary = () => `Portal GL <3 • Días sin discutir: ${peaceDays} ${peaceDays >= 7 ? '(Racha 5★)' : ''}`;
+
+    function setCat(c) {
+      activeCat = c;
+      document.querySelectorAll('.cat-btn').forEach(b => b.className = 'cat-btn shrink-0 px-3 py-2 rounded-xl gl-card');
+      const activeBtn = document.getElementById('cat-' + c);
+      if (activeBtn) activeBtn.className = 'cat-btn shrink-0 px-3 py-2 rounded-xl bg-[#2EC4B6] text-white';
+      renderCards();
+    }
+
+    function renderCards() {
+      const q = (document.getElementById('searchInput').value || '').toLowerCase();
+      const filtered = SUPER_MODULES.filter(t => {
+        const matchCat = activeCat === 'todas' || t.cat === activeCat;
+        const matchQ = t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.tags.join(' ').toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      document.getElementById('cardsGrid').innerHTML = filtered.map(t => `
+        <article class="gl-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm" style="border-top: 5px solid ${t.accent}">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold" style="background:${t.badgeBg}; color:${t.badgeText}">${t.cat}</span>
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background:${t.badgeBg}; color:${t.badgeText}">
+                <i data-lucide="${t.icon}" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h3 class="text-base font-black leading-snug mb-2">${t.title}</h3>
+            <div class="flex flex-wrap gap-1 mb-2.5">
+              ${t.tags.map(tg => `<span class="px-2 py-0.5 rounded-md bg-[#F2FBFB] border border-[#BCECE7] text-[10px] font-bold text-[#1B8A82]">${tg}</span>`).join('')}
+            </div>
+            <p class="text-xs leading-relaxed opacity-85 mb-4">${t.desc}</p>
+          </div>
+          <div class="pt-3 border-t border-[#BCECE7]/60 flex items-center justify-between gap-2">
+            <a href="${t.url}" class="flex-1 text-center py-2.5 px-3 rounded-xl bg-[#2EC4B6] hover:bg-[#23A89C] text-white text-xs font-extrabold transition">Abrir Súper-Módulo</a>
+            <button onclick="openPreview('${t.url}', '${t.title.replace(/'/g, "'")}')" class="py-2.5 px-3 rounded-xl bg-[#E0F8F6] hover:bg-[#CBF3F0] text-[#134E53] text-xs font-bold transition" title="Vista rápida"><i data-lucide="eye" class="w-4 h-4"></i></button>
+          </div>
+        </article>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function openPreview(url, title) { document.getElementById('previewTitle').textContent = title; document.getElementById('previewExternal').href = url; document.getElementById('previewFrame').src = url; document.getElementById('previewModal').classList.remove('hidden'); }
+    function closePreview() { document.getElementById('previewModal').classList.add('hidden'); document.getElementById('previewFrame').src = ''; }
+    function openMobileInstallModal() { document.getElementById('mobileInstallModal').classList.remove('hidden'); }
+    function closeMobileInstallModal() { document.getElementById('mobileInstallModal').classList.add('hidden'); }
+    function toggleNightMode() { document.body.classList.toggle('night-mode'); localStorage.setItem('familiaGL_night', document.body.classList.contains('night-mode') ? '1' : '0'); }
+
+    function updateLiveCustodyBanner() {
+      const anchorStart = new Date(2026, 10, 27, 17, 30, 0), now = new Date(), msDay = 86400000, msCycle = 14 * msDay;
+      const cycleIndex = Math.floor((now.getTime() - anchorStart.getTime()) / msCycle);
+      const currentStart = new Date(anchorStart.getTime() + cycleIndex * msCycle);
+      const currentEnd = new Date(currentStart.getTime() + 48 * 3600000);
+      const badge = document.getElementById('liveBadge'), head = document.getElementById('liveHeadline'), sub = document.getElementById('liveSubline');
+      const fmt = d => d.toLocaleDateString('es-CL', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+
+      if (now >= currentStart && now <= currentEnd) {
+        badge.style.background = '#FF9F9B'; badge.style.color = '#5C1916'; badge.textContent = '🧡 TURNO CON SU PAPÁ (EN CURSO)';
+        head.textContent = 'Clemente y Julián están con su papá';
+        sub.textContent = `Regresan a casa el ${fmt(currentEnd)} a las 17:30 hrs.`;
+      } else {
+        const nextStart = now < currentStart ? currentStart : new Date(currentStart.getTime() + msCycle);
+        const nextEnd = new Date(nextStart.getTime() + 48 * 3600000);
+        const daysLeft = Math.ceil((nextStart.getTime() - now.getTime()) / msDay);
+        badge.style.background = '#2EC4B6'; badge.style.color = '#FFFFFF'; badge.textContent = '🩵 EN CASA CON KAMILA E ISIDORA';
+        head.textContent = 'Clemente y Julián están en casa con ustedes';
+        sub.textContent = `Próxima visita papá: ${fmt(nextStart)} (17:30) al ${fmt(nextEnd)} (17:30) • Faltan ${daysLeft} día(s).`;
+      }
+
+      const todayDay = now.getDate(), todayMonth = now.getMonth();
+      const loveBadge = document.getElementById('loveTodayBadge'), loveSub = document.getElementById('loveSubline');
+      const nextFirst = todayDay === 1 ? now : new Date(now.getFullYear(), now.getMonth() + 1, 1);
+      const daysToFirst = Math.ceil((new Date(nextFirst.getFullYear(), nextFirst.getMonth(), 1) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / msDay);
+      let nextAnniv = new Date(now.getFullYear(), 3, 1);
+      if (now > new Date(now.getFullYear(), 3, 1, 23, 59, 59)) nextAnniv = new Date(now.getFullYear() + 1, 3, 1);
+      const daysToAnniv = Math.ceil((nextAnniv - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / msDay);
+
+      if (todayDay === 1 && todayMonth === 3) { loveBadge.textContent = '🎉 ¡ANIVERSARIO!'; loveSub.textContent = '¡Feliz 1 de Abril, Kamila & Isidora!'; }
+      else if (todayDay === 1) { loveBadge.textContent = '💐 ¡CUMPLEMES!'; loveSub.textContent = `¡Feliz 1° del mes! Aniversario en ${daysToAnniv}d.`; }
+      else { loveBadge.textContent = `1° en ${daysToFirst}d`; loveSub.textContent = `Cumplemes 1° en ${daysToFirst}d • Aniversario 1 Abril en ${daysToAnniv}d.`; }
+    }
+
+    function exportAllFamilyData() {
+      const backup = {};
+      for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('familiaGL_')) backup[k] = localStorage.getItem(k); }
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `Respaldo_Portal_Familia_GL_v5_${new Date().toISOString().slice(0,10)}.json`; a.click();
+    }
+    function importAllFamilyData(e) {
+      const file = e.target.files[0]; if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) { try { const data = JSON.parse(ev.target.result); Object.keys(data).forEach(k => { if (k.startsWith('familiaGL_')) localStorage.setItem(k, data[k]); }); alert('¡Respaldo restaurado!'); window.location.reload(); } catch (err) { alert('Archivo inválido.'); } };
+      reader.readAsText(file);
+    }
+
+    if (localStorage.getItem('familiaGL_night') === '1') document.body.classList.add('night-mode');
+    renderPeaceCounter(); updateLiveCustodyBanner(); renderCards();
+  </script>
+
+<!-- SISTEMA DE PERSISTENCIA PERMANENTE + HISTÓRICO DIARIO POR MÓDULO + MODO CELULAR -->
+<script>
+(function() {
+  if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.protocol === 'http:')) {
+    const swPath = window.location.pathname.includes('/modulos/') ? '../sw.js' : './sw.js';
+    navigator.serviceWorker.register(swPath).catch(() => {});
+  }
+
+  const MODULE_FILE = window.location.pathname.split('/').pop() || 'index.html';
+  const MODULE_ID = MODULE_FILE.replace('.html', '');
+  const MODULE_NAMES = {
+    'index': 'Portal Principal GL <3',
+    'calendario_coparentalidad': 'Calendario 2026-2027 & Coparentalidad',
+    'rutinas_sueno': 'Rutinas, Sueño, Esfínteres & Mochila',
+    'escolaridad_ropa_regalos': 'Escolaridad, Ropa & Cumpleaños',
+    'panoramas_ninos': 'Mapa de Panoramas Kid-Friendly',
+    'pareja_bienestar_capsula': 'Kamila & Isidora: Citas, Autocuidado y Cápsula',
+    'album_hitos': 'Diario de Hitos y Anécdotas GL <3',
+    'finanzas_hogar': 'Finanzas: Cuentas Fijas y Plan de Ahorro',
+    'gestion_hogar': 'Hogar: Tareas, Despensa y Proyectos',
+    'documentos_auto': 'Bóveda de Documentos y Vehículo Familiar',
+    'salud_menu_emergencia': 'Salud, Tallas, Menú y Emergencias'
+  };
+  const MODULE_TITLE = MODULE_NAMES[MODULE_ID] || document.title || MODULE_ID;
+  const STATE_KEY = 'familiaGL_state_' + MODULE_ID;
+  const HISTORY_KEY = 'familiaGL_daily_history_' + MODULE_ID;
+
+  function todayISO() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function formatDateCL(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+
+  function getFields() {
+    return Array.from(document.querySelectorAll('input[id], select[id], textarea[id]')).filter(el => {
+      const type = (el.type || '').toLowerCase();
+      return type !== 'file' && type !== 'password' && type !== 'hidden' && !el.readOnly && !el.dataset.noSave;
+    });
+  }
+
+  function collectCurrentData() {
+    const fields = {};
+    getFields().forEach(el => {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        fields[el.id] = el.checked;
+      } else {
+        fields[el.id] = el.value;
+      }
+    });
+    const custom = (typeof window.getModuleCustomState === 'function') ? window.getModuleCustomState() : null;
+    const summary = (typeof window.getModuleDailySummary === 'function') ? window.getModuleDailySummary() : 'Actualización registrada';
+    return { fields, custom, summary };
+  }
+
+  function saveAll(manualNote) {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const isoDay = todayISO();
+    const payload = collectCurrentData();
+
+    try {
+      localStorage.setItem(STATE_KEY, JSON.stringify({
+        updatedAt: now.toISOString(),
+        date: isoDay,
+        fields: payload.fields,
+        custom: payload.custom
+      }));
+
+      const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+      const existing = hist[isoDay] || {};
+      const snapSummary = manualNote || payload.summary;
+
+      hist[isoDay] = {
+        date: isoDay,
+        lastTime: timeStr,
+        updatedAt: now.toISOString(),
+        summary: snapSummary,
+        fields: payload.fields,
+        custom: payload.custom,
+        count: (existing.count || 0) + 1
+      };
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+
+      const badge = document.getElementById('glSaveBadge');
+      if (badge) {
+        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#2EC4B6;margin-right:6px;"></span>Guardado ${timeStr} • ${formatDateCL(isoDay)}`;
+      }
+      renderHistoryModalList();
+    } catch (e) {
+      console.warn('Error guardando datos locales:', e);
+    }
+  }
+
+  function applyStateObject(stateObj) {
+    if (!stateObj) return;
+    const fields = getFields();
+    if (stateObj.fields) {
+      fields.forEach(el => {
+        if (Object.prototype.hasOwnProperty.call(stateObj.fields, el.id)) {
+          if (el.type === 'checkbox' || el.type === 'radio') {
+            el.checked = Boolean(stateObj.fields[el.id]);
+          } else {
+            el.value = stateObj.fields[el.id];
+          }
+        }
+      });
+    }
+    if (stateObj.custom && typeof window.setModuleCustomState === 'function') {
+      window.setModuleCustomState(stateObj.custom);
+    }
+    fields.forEach(el => {
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    if (typeof window.onModuleStateRestored === 'function') {
+      window.onModuleStateRestored();
+    }
+  }
+
+  function restorePermanentState() {
+    try {
+      const raw = localStorage.getItem(STATE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      applyStateObject(parsed);
+    } catch (e) {}
+  }
+
+  window.familiaGLSaveNow = function(note) {
+    saveAll(note);
+  };
+
+  window.familiaGLRestoreDay = function(isoDay) {
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    if (!hist[isoDay]) return;
+    if (confirm(`¿Cargar en pantalla el registro guardado del día ${formatDateCL(isoDay)}?`)) {
+      applyStateObject(hist[isoDay]);
+      saveAll(`Restaurado desde histórico del ${formatDateCL(isoDay)}`);
+      document.getElementById('glHistoryModal').style.display = 'none';
+    }
+  };
+
+  window.familiaGLDeleteDay = function(isoDay) {
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    delete hist[isoDay];
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+    renderHistoryModalList();
+  };
+
+  function renderHistoryModalList() {
+    const container = document.getElementById('glHistoryList');
+    if (!container) return;
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    const days = Object.keys(hist).sort().reverse();
+    if (days.length === 0) {
+      container.innerHTML = `<div style="padding:24px;text-align:center;color:#52797E;font-size:13px;">Aún no hay días registrados en el histórico de esta herramienta. Cada cambio se guarda automáticamente por fecha.</div>`;
+      return;
+    }
+    container.innerHTML = days.map(day => {
+      const item = hist[day];
+      const isToday = day === todayISO();
+      return `
+        <div style="background:#F2FBFB;border:1px solid #BCECE7;border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:180px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+              <span style="font-weight:800;color:#134E53;font-size:13px;">📅 ${formatDateCL(day)}</span>
+              ${isToday ? '<span style="background:#2EC4B6;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;">HOY</span>' : ''}
+              <span style="font-size:11px;color:#52797E;">${item.lastTime || ''} (${item.count || 1} mov.)</span>
+            </div>
+            <div style="font-size:12px;color:#2B5B60;line-height:1.4;">${item.summary || 'Registro guardado'}</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button type="button" onclick="familiaGLRestoreDay('${day}')" style="background:#2EC4B6;color:#fff;border:none;border-radius:9px;padding:7px 11px;font-size:11px;font-weight:700;cursor:pointer;">Ver / Cargar</button>
+            <button type="button" onclick="familiaGLDeleteDay('${day}')" style="background:#FFE5E5;color:#C94A4A;border:1px solid #FFC2C2;border-radius:9px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;">Borrar</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function mountUI() {
+    if (document.getElementById('glPersistBar')) return;
+    const bar = document.createElement('div');
+    bar.id = 'glPersistBar';
+    bar.style.cssText = 'position:fixed;bottom:10px;left:10px;right:10px;max-width:440px;margin-left:auto;z-index:9998;background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);color:#134E53;border:1.5px solid #99E2DC;border-radius:16px;padding:8px 12px;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:8px;box-shadow:0 10px 25px rgba(46,196,182,0.2);font-family:system-ui,-apple-system,sans-serif;';
+    bar.innerHTML = `
+      <span id="glSaveBadge" style="display:inline-flex;align-items:center;font-weight:700;color:#134E53;truncate;">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#2EC4B6;margin-right:6px;shrink:0;"></span>Guardado • ${formatDateCL(todayISO())}
+      </span>
+      <button type="button" id="glOpenHistoryBtn" style="background:#CBF3F0;color:#0F5E63;border:1px solid #8CE0D8;border-radius:10px;padding:5px 10px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;">
+        📜 Histórico Día
+      </button>
+    `;
+    document.body.appendChild(bar);
+
+    const modal = document.createElement('div');
+    modal.id = 'glHistoryModal';
+    modal.style.cssText = 'display:none;position:fixed;inset:0;z-index:10000;background:rgba(19,78,83,0.45);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:12px;font-family:system-ui,-apple-system,sans-serif;';
+    modal.innerHTML = `
+      <div style="background:#FFFFFF;border:2px solid #99E2DC;border-radius:22px;max-width:640px;width:100%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,0.2);overflow:hidden;">
+        <div style="padding:14px 18px;background:linear-gradient(135deg,#CBF3F0,#E8FBF9);border-bottom:1px solid #B2EAE4;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div>
+            <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#1B8A82;">Portal Familia GL &lt;3 • Bitácora Diaria</span>
+            <h3 style="margin:2px 0 0;font-size:15px;font-weight:800;color:#134E53;">Histórico por Día — ${MODULE_TITLE}</h3>
+          </div>
+          <button type="button" id="glCloseHistoryBtn" style="background:#fff;border:1px solid #B2EAE4;color:#134E53;border-radius:10px;padding:6px 12px;font-weight:800;cursor:pointer;">✕</button>
+        </div>
+        <div id="glHistoryList" style="padding:14px 18px;overflow-y:auto;flex:1;"></div>
+        <div style="padding:12px 18px;background:#F7FCFC;border-top:1px solid #D9F4F1;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:#52797E;flex-wrap:wrap;">
+          <span>💾 Guardado en tu celular y PC</span>
+          <button type="button" id="glSnapNowBtn" style="background:#2EC4B6;color:#fff;border:none;border-radius:9px;padding:7px 12px;font-weight:700;cursor:pointer;">+ Guardar foto de hoy</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('glOpenHistoryBtn').addEventListener('click', () => {
+      renderHistoryModalList();
+      modal.style.display = 'flex';
+    });
+    document.getElementById('glCloseHistoryBtn').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+    document.getElementById('glSnapNowBtn').addEventListener('click', () => {
+      const note = prompt('Nota opcional para el registro de hoy:', 'Cierre del día guardado manualmente');
+      if (note !== null) saveAll(note || 'Snapshot guardado manualmente');
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    mountUI();
+    restorePermanentState();
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    if (!hist[todayISO()]) {
+      saveAll('Apertura y estado inicial del día');
+    } else {
+      renderHistoryModalList();
+    }
+    document.addEventListener('input', () => saveAll(), true);
+    document.addEventListener('change', () => saveAll(), true);
+  });
+})();
+</script>
+</body></html>
