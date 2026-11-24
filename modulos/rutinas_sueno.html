@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Rutinas, Sueño, Esfínteres &amp; Mochila | Portal Familia GL &lt;3</title>
+  
+  <meta name="theme-color" content="#2EC4B6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Familia GL <3" />
+  <link rel="manifest" href="../manifest.json" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%232EC4B6'/%3E%3Ctext x='50%25' y='44%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='900' font-size='190' fill='%23FFFFFF'%3EGL%3C/text%3E%3Ctext x='50%25' y='74%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='110' fill='%23FFE5E4'%3E%E2%9D%A4%3C/text%3E%3C/svg%3E" />
+  <style>
+    button, a, input, select, textarea, label { touch-action: manipulation; }
+    @media (max-width: 640px) {
+      input, select, textarea { font-size: 16px !important; }
+    }
+    .tab-active { background-color: #2EC4B6 !important; color: #FFFFFF !important; border-color: #2EC4B6 !important; }
+  </style>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#F2FBFB] text-[#134E53] min-h-screen pb-24">
+  <header class="bg-gradient-to-r from-[#CBF3F0] to-[#EDE2F5] border-b border-[#BCECE7] px-4 sm:px-6 py-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div>
+        <a href="../index.html" class="text-xs font-extrabold text-[#1B8A82] hover:underline">← Volver al Portal Familia GL &lt;3</a>
+        <h1 class="text-lg sm:text-2xl font-black mt-0.5">Rutinas, Sueño, Esfínteres &amp; Mochila 🌟</h1>
+        <p class="text-xs text-[#2C686E]">Clemente (4 años) y Julián (2 años) • Guardado diario en tu celular y PC</p>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="openSubTab('tab-rut')" id="btn-tab-rut" class="sub-tab-btn tab-active px-3.5 py-2 rounded-xl bg-white border border-[#99E2DC] text-xs font-extrabold">🌟 Rutinas y Mochila</button>
+        <button onclick="openSubTab('tab-sue')" id="btn-tab-sue" class="sub-tab-btn px-3.5 py-2 rounded-xl bg-white border border-[#99E2DC] text-xs font-extrabold">🌙 Sueño y Esfínteres</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-3.5 sm:px-6 mt-5">
+    <!-- PESTAÑA 1: RUTINAS Y MOCHILA -->
+    <div id="tab-rut" class="sub-panel space-y-4">
+      <div class="flex justify-end">
+        <button onclick="resetTodayRoutine()" class="px-3.5 py-2 rounded-xl bg-white border border-[#99E2DC] text-xs font-extrabold shadow-sm">🔄 Iniciar Nuevo Día (Limpiar checks)</button>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <section class="bg-white border-2 border-[#2EC4B6] rounded-2xl p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-base font-black">👦 Clemente (4 años)</h2>
+            <span id="starsClemente" class="text-xs font-black text-[#E09F00] bg-[#FFF3CC] px-2.5 py-1 rounded-xl">0 / 6 ⭐</span>
+          </div>
+          <div id="listClemente" class="space-y-2 text-xs"></div>
+        </section>
+
+        <section class="bg-white border-2 border-[#CDB4DB] rounded-2xl p-4 shadow-sm">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-base font-black">👶 Julián (2 años)</h2>
+            <span id="starsJulian" class="text-xs font-black text-[#5C3A78] bg-[#EDE2F5] px-2.5 py-1 rounded-xl">0 / 6 💛</span>
+          </div>
+          <div id="listJulian" class="space-y-2 text-xs"></div>
+        </section>
+
+        <section class="bg-white border-2 border-[#FF9F9B] rounded-2xl p-4 shadow-sm flex flex-col justify-between">
+          <div>
+            <h2 class="text-base font-black mb-2">🎒 Mochila Fin de Semana Papá</h2>
+            <div id="listBag" class="space-y-2 text-xs"></div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-[#FFE5E4]">
+            <label class="block text-xs font-bold mb-1">Notas para el papá (remedios / horarios):</label>
+            <textarea id="dadBagNote" rows="2" placeholder="Ej: Julián toma jarabe cada 8 hrs; Clemente lleva su tuto..." class="w-full p-2 rounded-xl border border-[#BCECE7] text-xs"></textarea>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- PESTAÑA 2: SUEÑO, SIESTAS Y ESFÍNTERES -->
+    <div id="tab-sue" class="sub-panel hidden space-y-5">
+      <section class="bg-white border-2 border-[#2EC4B6] rounded-2xl p-4 shadow-sm">
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="text-sm font-black">🚽 Estrellitas Control de Esfínteres — Julián (2 años)</h2>
+          <button onclick="addPottyStar()" class="px-3 py-1.5 rounded-xl bg-[#2EC4B6] text-white text-xs font-extrabold">+1 Estrella ⭐</button>
+        </div>
+        <div id="pottyStarsBox" class="flex flex-wrap gap-1.5 text-xl items-center"></div>
+      </section>
+
+      <form onsubmit="addSleepLog(event)" class="bg-white border-2 border-[#CDB4DB] rounded-2xl p-4 grid grid-cols-1 sm:grid-cols-12 gap-2 text-xs shadow-sm">
+        <select id="slKid" class="sm:col-span-3 p-2.5 rounded-xl border border-[#BCECE7] font-bold" data-no-save="true">
+          <option value="👶 Julián (2)">👶 Julián (2 años)</option>
+          <option value="👦 Clemente (4)">👦 Clemente (4 años)</option>
+        </select>
+        <select id="slType" class="sm:col-span-3 p-2.5 rounded-xl border border-[#BCECE7] font-bold" data-no-save="true">
+          <option value="😴 Siesta">😴 Siesta Tarde</option>
+          <option value="🌙 Sueño Nocturno">🌙 Sueño Nocturno</option>
+          <option value="🚽 Logro Baño / Sin Pañal">🚽 Logro Baño / Sin Pañal</option>
+        </select>
+        <input id="slDetail" required placeholder="Ej: Durmió 13:30 a 15:00 / Avisó para ir al baño 🌟" class="sm:col-span-4 p-2.5 rounded-xl border border-[#BCECE7]" data-no-save="true" />
+        <button type="submit" class="sm:col-span-2 py-2.5 rounded-xl bg-[#9D79BC] text-white font-extrabold">+ Anotar</button>
+      </form>
+      <section id="sleepLogsList" class="space-y-2 text-xs"></section>
+    </div>
+  </main>
+
+  
+<script>
+function openSubTab(tabId) {
+  document.querySelectorAll('.sub-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('tab-active'));
+  const panel = document.getElementById(tabId);
+  if (panel) panel.classList.remove('hidden');
+  const btn = document.getElementById('btn-' + tabId);
+  if (btn) btn.classList.add('tab-active');
+}
+</script>
+
+  <script>
+    const TASKS_CLEMENTE = ['🌞 Levantarse, baño y dientes','👕 Vestirse solito','🥣 Desayuno y colación jardín','🧸 Guardar juguetes antes de cenar','🛁 Baño y pijama','📖 Cuento antes de dormir (20:30)'];
+    const TASKS_JULIAN = ['🍼 Leche / desayuno y muda','🍎 Colación media mañana','😴 Siesta tarde (13:30 - 15:00)','🥪 Once / merienda','🛁 Baño relajante y crema','🌙 Leche nocturna y dormir (20:00)'];
+    const BAG_ITEMS = ['3 mudas completas Clemente (4)','4 mudas completas Julián (2)','Pañales + toallitas + crema muda','Pijamas abrigados + polerones','Tutos, mamadera y peluche favorito','Botiquín básico (paracetamol, termómetro)'];
+
+    let checks = JSON.parse(localStorage.getItem('familiaGL_rutinas_checks') || '{}');
+    let sleepLogs = JSON.parse(localStorage.getItem('familiaGL_sleep_logs') || '[]');
+    let pottyStars = parseInt(localStorage.getItem('familiaGL_potty_stars') || '3', 10);
+
+    window.getModuleCustomState = () => ({ checks, sleepLogs, pottyStars });
+    window.setModuleCustomState = (c) => {
+      if (c.checks) checks = c.checks;
+      if (c.sleepLogs) sleepLogs = c.sleepLogs;
+      if (typeof c.pottyStars === 'number') pottyStars = c.pottyStars;
+      localStorage.setItem('familiaGL_rutinas_checks', JSON.stringify(checks));
+      localStorage.setItem('familiaGL_sleep_logs', JSON.stringify(sleepLogs));
+      localStorage.setItem('familiaGL_potty_stars', String(pottyStars));
+    };
+    window.getModuleDailySummary = () => `Clemente: ${TASKS_CLEMENTE.filter((_, i) => checks['c_' + i]).length}/6 ⭐ | Julián: ${TASKS_JULIAN.filter((_, i) => checks['j_' + i]).length}/6 💛 | Esfínteres: ${pottyStars}★`;
+    window.onModuleStateRestored = () => { renderLists(); renderSleep(); };
+
+    function toggleCheck(key) {
+      checks[key] = !checks[key];
+      localStorage.setItem('familiaGL_rutinas_checks', JSON.stringify(checks));
+      if (window.familiaGLSaveNow) window.familiaGLSaveNow();
+      renderLists();
+    }
+    function resetTodayRoutine() {
+      if (!confirm('¿Limpiar casillas para iniciar nuevo día?')) return;
+      checks = {}; localStorage.setItem('familiaGL_rutinas_checks', JSON.stringify(checks));
+      if (window.familiaGLSaveNow) window.familiaGLSaveNow('Nuevo día iniciado'); renderLists();
+    }
+    function renderLists() {
+      let cCount = 0;
+      document.getElementById('listClemente').innerHTML = TASKS_CLEMENTE.map((txt, i) => {
+        const ok = !!checks['c_' + i]; if (ok) cCount++;
+        return `<label onclick="toggleCheck('c_${i}')" class="flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer ${ok ? 'bg-[#E0F8F6] border-[#2EC4B6] line-through opacity-75' : 'bg-[#F9FEFE] border-[#BCECE7]'}"><input type="checkbox" ${ok ? 'checked' : ''} class="accent-[#2EC4B6]" data-no-save="true"/><span class="font-semibold">${txt}</span></label>`;
+      }).join('');
+      document.getElementById('starsClemente').textContent = `${cCount} / 6 ⭐`;
+
+      let jCount = 0;
+      document.getElementById('listJulian').innerHTML = TASKS_JULIAN.map((txt, i) => {
+        const ok = !!checks['j_' + i]; if (ok) jCount++;
+        return `<label onclick="toggleCheck('j_${i}')" class="flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer ${ok ? 'bg-[#F3EAF9] border-[#CDB4DB] line-through opacity-75' : 'bg-[#FCF9FE] border-[#E5D4EF]'}"><input type="checkbox" ${ok ? 'checked' : ''} class="accent-[#9D79BC]" data-no-save="true"/><span class="font-semibold">${txt}</span></label>`;
+      }).join('');
+      document.getElementById('starsJulian').textContent = `${jCount} / 6 💛`;
+
+      document.getElementById('listBag').innerHTML = BAG_ITEMS.map((txt, i) => {
+        const ok = !!checks['b_' + i];
+        return `<label onclick="toggleCheck('b_${i}')" class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer ${ok ? 'bg-[#FFE5E4] border-[#FF9F9B] line-through opacity-75' : 'bg-[#FFFBFB] border-[#FFD6D4]'}"><input type="checkbox" ${ok ? 'checked' : ''} class="accent-[#FF9F9B]" data-no-save="true"/><span class="font-semibold">${txt}</span></label>`;
+      }).join('');
+    }
+
+    function addPottyStar() {
+      pottyStars++; localStorage.setItem('familiaGL_potty_stars', String(pottyStars));
+      if (window.familiaGLSaveNow) window.familiaGLSaveNow(`Estrella Julián: ${pottyStars}`); renderSleep();
+    }
+    function addSleepLog(e) {
+      e.preventDefault();
+      sleepLogs.unshift({ id: Date.now(), date: new Date().toLocaleDateString('es-CL'), kid: document.getElementById('slKid').value, type: document.getElementById('slType').value, detail: document.getElementById('slDetail').value.trim() });
+      localStorage.setItem('familiaGL_sleep_logs', JSON.stringify(sleepLogs));
+      if (window.familiaGLSaveNow) window.familiaGLSaveNow('Registro sueño/hábito agregado'); e.target.reset(); renderSleep();
+    }
+    function delSleepLog(id) {
+      sleepLogs = sleepLogs.filter(s => s.id !== id); localStorage.setItem('familiaGL_sleep_logs', JSON.stringify(sleepLogs)); renderSleep();
+    }
+    function renderSleep() {
+      document.getElementById('pottyStarsBox').innerHTML = Array.from({ length: pottyStars }).map(() => '⭐').join('') + `<span class="text-xs font-extrabold text-[#1B8A82] ml-2">(${pottyStars} logros)</span>`;
+      document.getElementById('sleepLogsList').innerHTML = sleepLogs.map(s => `<div class="bg-white p-3 rounded-xl border border-[#BCECE7] flex justify-between items-center"><div><span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F3EAF9] text-[#5C3A78]">${s.kid} • ${s.type}</span> <strong class="ml-1">${s.detail}</strong> <span class="text-[10px] text-[#52797E]">(${s.date})</span></div><button onclick="delSleepLog(${s.id})" class="text-[#C94A4A] font-bold">✕</button></div>`).join('');
+    }
+    renderLists(); renderSleep();
+  </script>
+
+<!-- SISTEMA DE PERSISTENCIA PERMANENTE + HISTÓRICO DIARIO POR MÓDULO + MODO CELULAR -->
+<script>
+(function() {
+  if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.protocol === 'http:')) {
+    const swPath = window.location.pathname.includes('/modulos/') ? '../sw.js' : './sw.js';
+    navigator.serviceWorker.register(swPath).catch(() => {});
+  }
+
+  const MODULE_FILE = window.location.pathname.split('/').pop() || 'index.html';
+  const MODULE_ID = MODULE_FILE.replace('.html', '');
+  const MODULE_NAMES = {
+    'index': 'Portal Principal GL <3',
+    'calendario_coparentalidad': 'Calendario 2026-2027 & Coparentalidad',
+    'rutinas_sueno': 'Rutinas, Sueño, Esfínteres & Mochila',
+    'escolaridad_ropa_regalos': 'Escolaridad, Ropa & Cumpleaños',
+    'panoramas_ninos': 'Mapa de Panoramas Kid-Friendly',
+    'pareja_bienestar_capsula': 'Kamila & Isidora: Citas, Autocuidado y Cápsula',
+    'album_hitos': 'Diario de Hitos y Anécdotas GL <3',
+    'finanzas_hogar': 'Finanzas: Cuentas Fijas y Plan de Ahorro',
+    'gestion_hogar': 'Hogar: Tareas, Despensa y Proyectos',
+    'documentos_auto': 'Bóveda de Documentos y Vehículo Familiar',
+    'salud_menu_emergencia': 'Salud, Tallas, Menú y Emergencias'
+  };
+  const MODULE_TITLE = MODULE_NAMES[MODULE_ID] || document.title || MODULE_ID;
+  const STATE_KEY = 'familiaGL_state_' + MODULE_ID;
+  const HISTORY_KEY = 'familiaGL_daily_history_' + MODULE_ID;
+
+  function todayISO() {
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function formatDateCL(iso) {
+    if (!iso) return '';
+    const [y, m, d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+
+  function getFields() {
+    return Array.from(document.querySelectorAll('input[id], select[id], textarea[id]')).filter(el => {
+      const type = (el.type || '').toLowerCase();
+      return type !== 'file' && type !== 'password' && type !== 'hidden' && !el.readOnly && !el.dataset.noSave;
+    });
+  }
+
+  function collectCurrentData() {
+    const fields = {};
+    getFields().forEach(el => {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        fields[el.id] = el.checked;
+      } else {
+        fields[el.id] = el.value;
+      }
+    });
+    const custom = (typeof window.getModuleCustomState === 'function') ? window.getModuleCustomState() : null;
+    const summary = (typeof window.getModuleDailySummary === 'function') ? window.getModuleDailySummary() : 'Actualización registrada';
+    return { fields, custom, summary };
+  }
+
+  function saveAll(manualNote) {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const isoDay = todayISO();
+    const payload = collectCurrentData();
+
+    try {
+      localStorage.setItem(STATE_KEY, JSON.stringify({
+        updatedAt: now.toISOString(),
+        date: isoDay,
+        fields: payload.fields,
+        custom: payload.custom
+      }));
+
+      const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+      const existing = hist[isoDay] || {};
+      const snapSummary = manualNote || payload.summary;
+
+      hist[isoDay] = {
+        date: isoDay,
+        lastTime: timeStr,
+        updatedAt: now.toISOString(),
+        summary: snapSummary,
+        fields: payload.fields,
+        custom: payload.custom,
+        count: (existing.count || 0) + 1
+      };
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+
+      const badge = document.getElementById('glSaveBadge');
+      if (badge) {
+        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#2EC4B6;margin-right:6px;"></span>Guardado ${timeStr} • ${formatDateCL(isoDay)}`;
+      }
+      renderHistoryModalList();
+    } catch (e) {
+      console.warn('Error guardando datos locales:', e);
+    }
+  }
+
+  function applyStateObject(stateObj) {
+    if (!stateObj) return;
+    const fields = getFields();
+    if (stateObj.fields) {
+      fields.forEach(el => {
+        if (Object.prototype.hasOwnProperty.call(stateObj.fields, el.id)) {
+          if (el.type === 'checkbox' || el.type === 'radio') {
+            el.checked = Boolean(stateObj.fields[el.id]);
+          } else {
+            el.value = stateObj.fields[el.id];
+          }
+        }
+      });
+    }
+    if (stateObj.custom && typeof window.setModuleCustomState === 'function') {
+      window.setModuleCustomState(stateObj.custom);
+    }
+    fields.forEach(el => {
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    if (typeof window.onModuleStateRestored === 'function') {
+      window.onModuleStateRestored();
+    }
+  }
+
+  function restorePermanentState() {
+    try {
+      const raw = localStorage.getItem(STATE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      applyStateObject(parsed);
+    } catch (e) {}
+  }
+
+  window.familiaGLSaveNow = function(note) {
+    saveAll(note);
+  };
+
+  window.familiaGLRestoreDay = function(isoDay) {
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    if (!hist[isoDay]) return;
+    if (confirm(`¿Cargar en pantalla el registro guardado del día ${formatDateCL(isoDay)}?`)) {
+      applyStateObject(hist[isoDay]);
+      saveAll(`Restaurado desde histórico del ${formatDateCL(isoDay)}`);
+      document.getElementById('glHistoryModal').style.display = 'none';
+    }
+  };
+
+  window.familiaGLDeleteDay = function(isoDay) {
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    delete hist[isoDay];
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(hist));
+    renderHistoryModalList();
+  };
+
+  function renderHistoryModalList() {
+    const container = document.getElementById('glHistoryList');
+    if (!container) return;
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    const days = Object.keys(hist).sort().reverse();
+    if (days.length === 0) {
+      container.innerHTML = `<div style="padding:24px;text-align:center;color:#52797E;font-size:13px;">Aún no hay días registrados en el histórico de esta herramienta. Cada cambio se guarda automáticamente por fecha.</div>`;
+      return;
+    }
+    container.innerHTML = days.map(day => {
+      const item = hist[day];
+      const isToday = day === todayISO();
+      return `
+        <div style="background:#F2FBFB;border:1px solid #BCECE7;border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:180px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;">
+              <span style="font-weight:800;color:#134E53;font-size:13px;">📅 ${formatDateCL(day)}</span>
+              ${isToday ? '<span style="background:#2EC4B6;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;">HOY</span>' : ''}
+              <span style="font-size:11px;color:#52797E;">${item.lastTime || ''} (${item.count || 1} mov.)</span>
+            </div>
+            <div style="font-size:12px;color:#2B5B60;line-height:1.4;">${item.summary || 'Registro guardado'}</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button type="button" onclick="familiaGLRestoreDay('${day}')" style="background:#2EC4B6;color:#fff;border:none;border-radius:9px;padding:7px 11px;font-size:11px;font-weight:700;cursor:pointer;">Ver / Cargar</button>
+            <button type="button" onclick="familiaGLDeleteDay('${day}')" style="background:#FFE5E5;color:#C94A4A;border:1px solid #FFC2C2;border-radius:9px;padding:7px 10px;font-size:11px;font-weight:700;cursor:pointer;">Borrar</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function mountUI() {
+    if (document.getElementById('glPersistBar')) return;
+    const bar = document.createElement('div');
+    bar.id = 'glPersistBar';
+    bar.style.cssText = 'position:fixed;bottom:10px;left:10px;right:10px;max-width:440px;margin-left:auto;z-index:9998;background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);color:#134E53;border:1.5px solid #99E2DC;border-radius:16px;padding:8px 12px;font-size:11px;display:flex;align-items:center;justify-content:space-between;gap:8px;box-shadow:0 10px 25px rgba(46,196,182,0.2);font-family:system-ui,-apple-system,sans-serif;';
+    bar.innerHTML = `
+      <span id="glSaveBadge" style="display:inline-flex;align-items:center;font-weight:700;color:#134E53;truncate;">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:999px;background:#2EC4B6;margin-right:6px;shrink:0;"></span>Guardado • ${formatDateCL(todayISO())}
+      </span>
+      <button type="button" id="glOpenHistoryBtn" style="background:#CBF3F0;color:#0F5E63;border:1px solid #8CE0D8;border-radius:10px;padding:5px 10px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;">
+        📜 Histórico Día
+      </button>
+    `;
+    document.body.appendChild(bar);
+
+    const modal = document.createElement('div');
+    modal.id = 'glHistoryModal';
+    modal.style.cssText = 'display:none;position:fixed;inset:0;z-index:10000;background:rgba(19,78,83,0.45);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:12px;font-family:system-ui,-apple-system,sans-serif;';
+    modal.innerHTML = `
+      <div style="background:#FFFFFF;border:2px solid #99E2DC;border-radius:22px;max-width:640px;width:100%;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,0.2);overflow:hidden;">
+        <div style="padding:14px 18px;background:linear-gradient(135deg,#CBF3F0,#E8FBF9);border-bottom:1px solid #B2EAE4;display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div>
+            <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#1B8A82;">Portal Familia GL &lt;3 • Bitácora Diaria</span>
+            <h3 style="margin:2px 0 0;font-size:15px;font-weight:800;color:#134E53;">Histórico por Día — ${MODULE_TITLE}</h3>
+          </div>
+          <button type="button" id="glCloseHistoryBtn" style="background:#fff;border:1px solid #B2EAE4;color:#134E53;border-radius:10px;padding:6px 12px;font-weight:800;cursor:pointer;">✕</button>
+        </div>
+        <div id="glHistoryList" style="padding:14px 18px;overflow-y:auto;flex:1;"></div>
+        <div style="padding:12px 18px;background:#F7FCFC;border-top:1px solid #D9F4F1;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:#52797E;flex-wrap:wrap;">
+          <span>💾 Guardado en tu celular y PC</span>
+          <button type="button" id="glSnapNowBtn" style="background:#2EC4B6;color:#fff;border:none;border-radius:9px;padding:7px 12px;font-weight:700;cursor:pointer;">+ Guardar foto de hoy</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('glOpenHistoryBtn').addEventListener('click', () => {
+      renderHistoryModalList();
+      modal.style.display = 'flex';
+    });
+    document.getElementById('glCloseHistoryBtn').addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    });
+    document.getElementById('glSnapNowBtn').addEventListener('click', () => {
+      const note = prompt('Nota opcional para el registro de hoy:', 'Cierre del día guardado manualmente');
+      if (note !== null) saveAll(note || 'Snapshot guardado manualmente');
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    mountUI();
+    restorePermanentState();
+    const hist = JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+    if (!hist[todayISO()]) {
+      saveAll('Apertura y estado inicial del día');
+    } else {
+      renderHistoryModalList();
+    }
+    document.addEventListener('input', () => saveAll(), true);
+    document.addEventListener('change', () => saveAll(), true);
+  });
+})();
+</script>
+</body></html>
